@@ -23,6 +23,22 @@ def main():
 
 
 if __name__ == '__main__':
-    print(eo.mc_barrier_option(stock=100, strike=90, sigma=0.2, time=1,
-                               barrier=80, rf=0.1, rebate=0, n_iter=10000, steps=100))
+    print(bs.black_scholes_formula_call(stock=100, strike=100, sigma=0.2, rf=0.1, t=1))
+
+    print(eo.mc_barrier_option(stock=100, strike=100, sigma=0.2, time=1,
+                               barrier=90, rf=0.1, rebate=0, n_iter=10000, steps=300))
+
+    print(eo.mc_asian_option(stock=100, strike=100, sigma=0.2, time=1, rf=0.1, n_iter=10000, steps=300,
+                             option_function=o.call, floating=False
+                             ))
+    print(eo.mc_asian_option(stock=100, strike=100, sigma=0.2, time=1, rf=0.1, n_iter=10000, steps=300,
+                             option_function=o.put, floating=False
+                             ))
+    print(eo.mc_asian_option(stock=100, strike=100, sigma=0.2, time=1, rf=0.1, n_iter=10000, steps=300,
+                             option_function=o.call, floating=True
+                             ))
+    print(eo.mc_asian_option(stock=100, strike=100, sigma=0.2, time=1, rf=0.1, n_iter=10000, steps=300,
+                             option_function=o.put, floating=True
+                             ))
+
 

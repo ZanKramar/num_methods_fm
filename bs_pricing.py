@@ -76,4 +76,30 @@ def dynamic_portfolio(stock, strike, steps, sigma, rf, maturity):
     return v[-1]
 
 
+def exchange_option(s01, s02, rf, sigma1, sigma2, ro, time, n_iter, lam=1):
+    """
+    Calculates price of exchange option
+
+    :param int or float s01: Initial price of first stock
+    :param int or float s02: Initial price of second stock
+    :param float rf: Risk free rate
+    :param float sigma1: Sigma of first stock
+    :param float sigma2: Sigma of second stock
+    :param float ro: Correlation of stocks
+    :param int or float time: Time of maturity
+    :param int n_iter: Number of iterations
+    :param float lam: Parameter of option
+    :return float: Price of option
+    """
+    counter = 0
+    n = 0
+    while n < n_iter:
+        g1 = normal()
+        g2 = normal()
+        counter += max(0, s01*e**((rf - 0.5*sigma1**2)*time + sigma1*g1*sqrt(time)) -
+                       lam*s02*e**((rf - 0.5*sigma2**2)*time + ro*sigma2*g1*sqrt(time) +
+                                   sqrt(1-ro**2)*g2*sigma2*sqrt(time)))
+        n += 1
+    return e**(-rf*time)*counter/n_iter
+
 

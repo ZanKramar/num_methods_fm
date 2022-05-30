@@ -1,9 +1,6 @@
 import valuations as val
 import options as o
-import simulations as s
-import replicating_porfolio as rp
 import bs_pricing as bs
-import exotic_options as eo
 
 
 def main():
@@ -23,22 +20,10 @@ def main():
 
 
 if __name__ == '__main__':
-    print(bs.black_scholes_formula_call(stock=100, strike=100, sigma=0.2, rf=0.1, t=1))
-
-    print(eo.mc_barrier_option(stock=100, strike=100, sigma=0.2, time=1,
-                               barrier=90, rf=0.1, rebate=0, n_iter=10000, steps=300))
-
-    print(eo.mc_asian_option(stock=100, strike=100, sigma=0.2, time=1, rf=0.1, n_iter=10000, steps=300,
-                             option_function=o.call, floating=False
-                             ))
-    print(eo.mc_asian_option(stock=100, strike=100, sigma=0.2, time=1, rf=0.1, n_iter=10000, steps=300,
-                             option_function=o.put, floating=False
-                             ))
-    print(eo.mc_asian_option(stock=100, strike=100, sigma=0.2, time=1, rf=0.1, n_iter=10000, steps=300,
-                             option_function=o.call, floating=True
-                             ))
-    print(eo.mc_asian_option(stock=100, strike=100, sigma=0.2, time=1, rf=0.1, n_iter=10000, steps=300,
-                             option_function=o.put, floating=True
-                             ))
-
+    s01 = s02 = 100
+    rf = 0.1
+    sigma1 = sigma2 = 0.2
+    ro = -0.5
+    print(bs.exchange_option(s01=s01, s02=s02, rf=rf, sigma1=sigma1, sigma2=sigma2, ro=ro, time=1, n_iter=100000))
+    main()
 
